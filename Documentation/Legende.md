@@ -1,10 +1,8 @@
 # ! Wichtig !
 
 ```ps
-<#
-    <Titel>
-    <Autor>
-    <Datum/Zeit>
-    <Filename>
-#>
+# Titel
+# Autor
+# Datum/Zeit
+# getFileSize.ps1
 ```
