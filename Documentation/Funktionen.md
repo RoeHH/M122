@@ -79,4 +79,36 @@ Line |
   12 |      Get-ChildItem $location | Where-Object {$_.Length -ge $length}
      |      ~~~~~~~~~~~~~~~~~~~~~~~
      | Cannot find path 'C:\Users\vmadmin\Documents\git\M122\PowerShell\1MB' because it does not exist.
-    ```
+```
+
+# Sum Function
+
+```ps
+# SummenFunktion
+# Rouven
+# Friday: 22.October.2021 13:25
+# sumFunction.ps1
+
+function mSumRet ([int]$z1,[int]$z2) { #Wichtig type Casting
+    return $z1 + $z2
+} 
+mSumRet 4 3 | Write-Host 
+mSumRet -1 -3 | Write-Host 
+mSumRet 3 (mSumRet 100 100) | Write-Host
+```
+
+# Sum Function mit Array als Imput param
+
+```ps
+# Summenfunktion mit Array als immput
+# Rouven
+# Friday: 22.October.2021 13:29
+# sumFunctionWithArray.ps1
+
+function mSumRet ([array]$arr) { #Wichtig 
+    return $arr[0] + $arr[1]
+} 
+$rr = mSumRet @(50, 50) 
+Write-Host $rr
+mSumRet (20, $rr) | Write-Host
+```
