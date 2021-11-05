@@ -9,3 +9,4 @@ function mSumRet ([array]$arr) { #Wichtig type casting
 $rr = mSumRet (50, 50) 
 Write-Host $rr
 mSumRet (20, $rr) | Write-Host
+
