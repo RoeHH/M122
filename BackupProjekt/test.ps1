@@ -1,11 +1,11 @@
 function createHeadOfLogfile ([string]$baseDir, [string]$backupDir, [string]$logfileDestination) {
-    "File Name:  $logfileDestination" | Out-File -FilePath $logfileDestination -Encoding UTF8
-    writeLineToLogfile " "
-    writeLineToLogfile "Copy from: $baseDir"
-    writeLineToLogfile "To:        $backupDir"
-    writeLineToLogfile " "
-    writeLineToLogfile "Operation     Time                   DateiName"  
-    writeLineToLogfile "----------------------------------------------"
+    "Backup Log: $logfileDestination" | Out-File -FilePath $logfileDestination -Encoding UTF8
+    writeLineToLogfile " " $logfileDestination
+    writeLineToLogfile "Copy from: $baseDir" $logfileDest
+    writeLineToLogfile "To:        $backupDir" $logfileDest
+    writeLineToLogfile " " $logfileDest
+    writeLineToLogfile "Operation     Time                   DateiName" $logfileDest
+    writeLineToLogfile "----------------------------------------------" $logfileDest
 }
 
 function writeLineToLogfile ([string] $str, [string]$logfileDestination) {
@@ -18,15 +18,17 @@ function createBackup ([string]$baseDir, [string]$backupDir) {
     createHeadOfLogfile $baseDir $backupDir $logfileDest #Erstellen der Kopierlogdatei
     $time = Get-Date -Format "dd.MM.yyyy HH:mm:ss"
     Copy-Item $baseDir -Destination $backupDir -Recurse -Force  #Kopieren des Ordners
-    foreach ($folder in (Get-ChildItem -Path $baseDir -Directory -Recurse)){
+    foreach ($folder in (Get-ChildItem -Path $baseDir -Directory -Recurse)) {
+        #Schleife über alle Ordner im Basisordner
         $folderName = ".\" + $folder.FullName.Substring($baseDir.Length - (Get-Item -Path $baseDir).BaseName.Length)
-        writeLineToLogfile "Copy Folder   $time    $folderName" $logfileDest
+        writeLineToLogfile "Copy Folder   $time    $folderName" $logfileDest #Schreiben der Kopierzeit und des Ordnernamens in die Kopierlogdatei
     }
-    foreach ($file in (Get-ChildItem -Path $baseDir -File -Recurse)){
+    foreach ($file in (Get-ChildItem -Path $baseDir -File -Recurse)) {
+        #Schleife über alle Dateien im Basisordner
         $fileName = ".\" + $file.FullName.Substring($baseDir.Length - (Get-Item -Path $baseDir).BaseName.Length)
-        writeLineToLogfile "Copy File     $time    $fileName" $logfileDest
+        writeLineToLogfile "Copy File     $time    $fileName" $logfileDest #Schreiben der Kopierzeit und des Dateinamens in die Kopierlogdatei
     }
 }
 
-createBackup "C:\Users\vmadmin\Documents\lilalu" "C:\Users\vmadmin\Documents\Backup"
+createBackup "D:\abcabxc" "D:\abcabxc-BU"
 
